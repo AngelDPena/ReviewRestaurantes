@@ -13,6 +13,8 @@ db = client.RestaurantReviews  # DB Connection path
 
 users = db.Users  # Collection Users
 restaurant = db.Restaurant  # Collection Restaurant
+review = db.Reviews # Collection Reviews
+
 
 root = tk.Tk()
 root.geometry('200x100')
@@ -73,7 +75,7 @@ def menu():
         elif option == 2:
             RegRestaurant()
         elif option == 3:
-            Review()
+            RegReview()
         option = int(input("Desea salir? coloque 0: "))
         os.system("cls")
 
@@ -143,5 +145,30 @@ def RegRestaurant():
 def Review():
     print("Registro")
 
+def RegReview():
+    salir = 0
+    while salir != 1:
+        Nombre = input("Nombre del restaurante: ")
+        Rating = int(input("Valoracion (1-5): "))
+        Comentario = input("Comentario: ")
+        Cedula = input("Cedula: ")
+        print(" ")
+
+        post = {
+            "Name": Nombre,
+            "Rating": Rating,
+            "Comment": Comentario,
+            "Cedula": Cedula
+        }
+
+        try:
+            review.insert_one(post, False, None, "Insertando review")
+            print("Review agregado Exitosamente!")
+        except:
+            print(Exception)
+
+        salir = int(input("Desea salir? 1 para salir 0 para quedarse: "))
+        os.system("cls")
+    return 0
 
 ui()

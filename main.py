@@ -67,7 +67,8 @@ def menu():
         print("2. Registrar un restaurante")
         print("3. Añadir reseña")
         option = int(input("Opcion: "))
-
+        
+        if option == 1:
             RegUser()
         elif option == 2:
             RegRestaurant()

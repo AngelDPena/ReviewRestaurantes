@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import messagebox
 import tkinter as tk
 from functools import partial
+import maskpass as mp
+import os
 
 client = MongoClient(
     'mongodb+srv://Angel:ycMVTPw6PNkHm1iy@cluster0.oqicaw7.mongodb.net/test')
@@ -28,6 +30,8 @@ def validateLogin(usr, pw):
     if validation == True:
         messagebox.showinfo(
             "Mensaje del sistema", "¡Credenciales validadas correctamente!")
+        root.destroy()
+        menu()
     else:
         messagebox.showerror("Error", "¡Credenciales incorrectas!")
 
@@ -56,6 +60,70 @@ def ui():
     loginButton = Button(root, text="Login", command=lambda: validateLogin(
         username.get(), password.get())).grid(row=4, column=0)
     tk.mainloop()
+
+
+def menu():
+    option = 1
+    while option > 0 and option < 4:
+
+        print("_____Menu:____")
+        print("¿Qué desea realizar?")
+        print("1. Registrar usuario")
+        print("2. Registrar un restaurante")
+        print("3. Añadir reseña")
+        option = int(input("Opcion: "))
+
+        if option == 1:
+            RegUser()
+        elif option == 2:
+            RegRestaurant()
+        elif option == 3:
+            Review()
+        option = int(input("Desea salir? coloque 0: "))
+        os.system("cls")
+
+
+def RegUser():
+    salir = 0
+    Password = " "
+    validatepw = " "
+    while Password != validatepw or salir == 0:
+        print("Ingrese los siguientes campos: ")
+        Username = input("Usuario: ")
+        Password = mp.askpass("Contraseña: ", "*")
+        validatepw = mp.askpass("Repetir Contraseña: ", "*")
+        Cedula = input("Cedula: ")
+        Nombres = input("Nombres: ")
+        Apellidos = input("Apellidos: ")
+        Correo = input("Correo: ")
+        print(" ")
+        if Password != validatepw:
+            print("Contraseñas no coinciden!")
+        else:
+            post = {
+                "Username": Username,
+                "Password": Password,
+                "Cedula":   Cedula,
+                "Nombres": Nombres,
+                "Apellidos": Apellidos,
+                "Correo": Correo
+            }
+            if users.find_one({'Username': Username}) == None:
+                users.insert_one(post, False, None, "Insertando Usuario")
+                print("Usuario insertado con éxito")
+            else:
+                print("¡Este usuario ya existe!")
+        salir = int(input("Desea salir? 1 para salir 0 para quedarse: "))
+        os.system("cls")
+    return 0
+
+
+def RegRestaurant():
+    print("Registro")
+
+
+def Review():
+    print("Registro")
 
 
 ui()

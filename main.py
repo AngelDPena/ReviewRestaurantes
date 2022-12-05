@@ -1,8 +1,7 @@
 from pymongo import MongoClient
-from tkinter import *
+import tkinter
 from tkinter import messagebox
 import tkinter as tk
-from functools import partial
 import maskpass as mp
 import os
 
@@ -23,7 +22,7 @@ root.title("Login")
 
 def validateLogin(usr, pw):
     validation = login(usr, pw)
-    if validation == True:
+    if validation is True:
         messagebox.showinfo(
             "Mensaje del sistema", "¡Credenciales validadas correctamente!"
         )
@@ -32,28 +31,32 @@ def validateLogin(usr, pw):
     else:
         messagebox.showerror("Error", "¡Credenciales incorrectas!")
 
+        
 def login(usr, pw):
-    if users.find_one({"Username": usr} and {"Password": pw}) == None:
+    if users.find_one({"Username": usr} and {"Password": pw}) is None:
         return False
     else:
         return True
 
+     
 def ui():
-    spacer = Label(root, text=" ").grid(row=0, column=0)
-    usernameLabel = Label(root, text="User Name").grid(row=1, column=0)
+    Label(root, text=" ").grid(row=0, column=0)
+    Label(root, text="User Name").grid(row=1, column=0)
     username = StringVar()
-    usernameEntry = Entry(root, textvariable=username).grid(row=1, column=1)
+    Entry(root, textvariable=username).grid(row=1, column=1)
 
-    passwordLabel = Label(root, text="Password").grid(row=2, column=0)
+    Label(root, text="Password").grid(row=2, column=0)
     password = StringVar()
-    passwordEntry = Entry(root, textvariable=password,
-                          show='*').grid(row=2, column=1)
+    Entry(root, textvariable=password,show='*').grid(row=2, column=1)
 
-    loginButton = Button(root, text="Login", command=lambda: validateLogin(
-        username.get(), password.get())).grid(row=4, column=0)
+    Button(
+        root,
+        text="Login",
+        command=lambda: validateLogin(username.get(), password.get()),
+    ).grid(row=4, column=0)
     tk.mainloop()
 
-    
+
 def menu():
     option = 1
     while option > 0 and option < 4:
@@ -65,7 +68,6 @@ def menu():
         print("3. Añadir reseña")
         option = int(input("Opcion: "))
 
-        if option == 1:
             RegUser()
         elif option == 2:
             RegRestaurant()
@@ -74,7 +76,7 @@ def menu():
         option = int(input("Desea salir? coloque 0: "))
         os.system("cls")
 
-        
+
 def RegUser():
     salir = 0
     Password = " "
@@ -95,12 +97,12 @@ def RegUser():
             post = {
                 "Username": Username,
                 "Password": Password,
-                "Cedula":   Cedula,
+                "Cedula": Cedula,
                 "Nombres": Nombres,
                 "Apellidos": Apellidos,
-                "Correo": Correo
+                "Correo": Correo,
             }
-            if users.find_one({'Username': Username}) == None:
+            if users.find_one({"Username": Username}) == None:
                 users.insert_one(post, False, None, "Insertando Usuario")
                 print("Usuario insertado con éxito")
             else:
@@ -118,18 +120,18 @@ def RegRestaurant():
         ID = int(input("ID del Propietario: "))
         Rating = float(input("Calificación: "))
         print(" ")
-        post = {
-            "Name": Nombre,
-            "Address": Direccion,
-            "OwnerID": ID,
-            "Rating": Rating
-        }
-        if restaurant.find_one({'Name': Nombre} and {"Address": Direccion} and {"OwnerID": ID}) == None:
+        post = {"Name": Nombre, "Address": Direccion, "OwnerID": ID, "Rating": Rating}
+        if(
+            restaurant.find_one(
+                {'Name': Nombre} and {"Address": Direccion} and {"OwnerID": ID}
+            )
+            == None
+          ):
             try:
                 restaurant.insert_one(post, False, None, "Insertando Usuario")
                 print("Restaurante agregado Exitosamente!")
-            except:
-                print(Exception)
+            except Exception as e:
+                print(e)
         else:
             print("¡Restaurante existente!")
         salir = int(input("Desea salir? 1 para salir 0 para quedarse: "))
@@ -154,14 +156,14 @@ def RegReview():
             "Name": Nombre,
             "Rating": Rating,
             "Comment": Comentario,
-            "Cedula": Cedula
+            "Cedula": Cedula,
         }
 
         try:
             review.insert_one(post, False, None, "Insertando review")
             print("Review agregado Exitosamente!")
-        except:
-            print(Exception)
+        except Exception as e:
+            print(e)
 
         salir = int(input("Desea salir? 1 para salir 0 para quedarse: "))
         os.system("cls")

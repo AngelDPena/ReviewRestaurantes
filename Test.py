@@ -7,5 +7,5 @@ class ftest(unittest.TestCase):
         self.assertEqual(m.login("juan", "1234"), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

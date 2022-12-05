@@ -13,8 +13,7 @@ db = client.RestaurantReviews  # DB Connection path
 
 users = db.Users  # Collection Users
 restaurant = db.Restaurant  # Collection Restaurant
-review = db.Reviews # Collection Reviews
-
+review = db.Reviews  # Collection Reviews
 
 root = tk.Tk()
 root.geometry('200x100')
@@ -145,6 +144,7 @@ def RegRestaurant():
 def Review():
     print("Registro")
 
+
 def RegReview():
     salir = 0
     while salir != 1:
@@ -170,5 +170,6 @@ def RegReview():
         salir = int(input("Desea salir? 1 para salir 0 para quedarse: "))
         os.system("cls")
     return 0
+
 
 ui()

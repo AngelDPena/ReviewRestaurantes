@@ -16,4 +16,4 @@ Para este proyecto se requiere:
 
 ## Otras fuentes
 
-Link de Kanban: https://trello.com/invite/b/ll9yACaS/ATTI839a163cb8721cac059cc30240e1e25fC924FA5C/restaurant-reviewer
+Link de Kanban: <https://trello.com/invite/b/ll9yACaS/ATTI839a163cb8721cac059cc30240e1e25fC924FA5C/restaurant-reviewer>.

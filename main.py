@@ -1,9 +1,10 @@
-from pymongo import MongoClient
-import tkinter
-from tkinter import messagebox
-import tkinter as tk
-import maskpass as mp
 import os
+import tkinter
+import tkinter as tk
+from tkinter import messagebox
+
+import maskpass as mp
+from pymongo import MongoClient
 
 client = MongoClient(
     "mongodb+srv://Angel:ycMVTPw6PNkHm1iy@cluster0.oqicaw7.mongodb.net/test"

@@ -7,57 +7,53 @@ import maskpass as mp
 import os
 
 client = MongoClient(
-    'mongodb+srv://Angel:ycMVTPw6PNkHm1iy@cluster0.oqicaw7.mongodb.net/test')  # Connection string
+    "mongodb+srv://Angel:ycMVTPw6PNkHm1iy@cluster0.oqicaw7.mongodb.net/test"
+)
 
-db = client.RestaurantReviews  # DB Connection path
+db = client.RestaurantReviews
 
-users = db.Users  # Collection Users
-restaurant = db.Restaurant  # Collection Restaurant
-review = db.Reviews  # Collection Reviews
+users = db.Users
+restaurant = db.Restaurant
+review = db.Reviews
 
 root = tk.Tk()
-root.geometry('200x100')
-root.title('Login')
+root.geometry("200x100")
+root.title("Login")
 
 
 def validateLogin(usr, pw):
     validation = login(usr, pw)
     if validation == True:
         messagebox.showinfo(
-            "Mensaje del sistema", "¡Credenciales validadas correctamente!")
+            "Mensaje del sistema", "¡Credenciales validadas correctamente!"
+        )
         root.destroy()
         menu()
     else:
         messagebox.showerror("Error", "¡Credenciales incorrectas!")
 
-
 def login(usr, pw):
-    if users.find_one({'Username': usr} and {'Password': pw}) == None:
+    if users.find_one({"Username": usr} and {"Password": pw}) == None:
         return False
     else:
         return True
 
-
 def ui():
-
-    # username label and text entry box
     spacer = Label(root, text=" ").grid(row=0, column=0)
     usernameLabel = Label(root, text="User Name").grid(row=1, column=0)
     username = StringVar()
     usernameEntry = Entry(root, textvariable=username).grid(row=1, column=1)
 
-    # password label and password entry box
     passwordLabel = Label(root, text="Password").grid(row=2, column=0)
     password = StringVar()
     passwordEntry = Entry(root, textvariable=password,
                           show='*').grid(row=2, column=1)
 
-    # login button
     loginButton = Button(root, text="Login", command=lambda: validateLogin(
         username.get(), password.get())).grid(row=4, column=0)
     tk.mainloop()
 
-
+    
 def menu():
     option = 1
     while option > 0 and option < 4:
@@ -78,7 +74,7 @@ def menu():
         option = int(input("Desea salir? coloque 0: "))
         os.system("cls")
 
-
+        
 def RegUser():
     salir = 0
     Password = " "

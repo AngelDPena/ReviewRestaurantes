@@ -9,10 +9,10 @@ El objetivo de este proyecto busca poder asociar a un restaurante a una serie de
 # SetUp
 
 Para este proyecto se requiere:
-Python 3.10.2
-MongoDB
-Pymongo
-tkinter
+- Python 3.10.2
+- MongoDB
+- Pymongo
+- tkinter
 
 # Otras fuentes
 

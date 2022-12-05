@@ -2,6 +2,12 @@ import os
 import tkinter
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import Label
+from tkinter import Button
+from tkinter import Entry
+from tkinter import StringVar
+
+
 
 import maskpass as mp
 from pymongo import MongoClient
@@ -32,14 +38,14 @@ def validateLogin(usr, pw):
     else:
         messagebox.showerror("Error", "¡Credenciales incorrectas!")
 
-        
+
 def login(usr, pw):
     if users.find_one({"Username": usr} and {"Password": pw}) is None:
         return False
     else:
         return True
 
-     
+
 def ui():
     Label(root, text=" ").grid(row=0, column=0)
     Label(root, text="User Name").grid(row=1, column=0)
@@ -48,7 +54,7 @@ def ui():
 
     Label(root, text="Password").grid(row=2, column=0)
     password = StringVar()
-    Entry(root, textvariable=password,show='*').grid(row=2, column=1)
+    Entry(root, textvariable=password, show="*").grid(row=2, column=1)
 
     Button(
         root,
@@ -68,7 +74,7 @@ def menu():
         print("2. Registrar un restaurante")
         print("3. Añadir reseña")
         option = int(input("Opcion: "))
-        
+
         if option == 1:
             RegUser()
         elif option == 2:
@@ -104,7 +110,7 @@ def RegUser():
                 "Apellidos": Apellidos,
                 "Correo": Correo,
             }
-            if users.find_one({"Username": Username}) == None:
+            if users.find_one({"Username": Username}) is None:
                 users.insert_one(post, False, None, "Insertando Usuario")
                 print("Usuario insertado con éxito")
             else:
@@ -123,12 +129,12 @@ def RegRestaurant():
         Rating = float(input("Calificación: "))
         print(" ")
         post = {"Name": Nombre, "Address": Direccion, "OwnerID": ID, "Rating": Rating}
-        if(
+        if (
             restaurant.find_one(
-                {'Name': Nombre} and {"Address": Direccion} and {"OwnerID": ID}
+                {"Name": Nombre} and {"Address": Direccion} and {"OwnerID": ID}
             )
-            == None
-          ):
+            is None
+        ):
             try:
                 restaurant.insert_one(post, False, None, "Insertando Usuario")
                 print("Restaurante agregado Exitosamente!")

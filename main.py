@@ -1,13 +1,7 @@
 import os
 import tkinter
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import Label
-from tkinter import Button
-from tkinter import Entry
-from tkinter import StringVar
-
-
+from tkinter import Button, Entry, Label, StringVar, messagebox
 
 import maskpass as mp
 from pymongo import MongoClient

@@ -1,5 +1,4 @@
 import os
-import tkinter
 import tkinter as tk
 from tkinter import Button, Entry, Label, StringVar, messagebox
 

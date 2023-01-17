@@ -5,9 +5,12 @@ from tkinter import Button, Entry, Label, StringVar, messagebox
 import maskpass as mp
 from pymongo import MongoClient
 
-client = MongoClient(
-    "mongodb+srv://Angel:ycMVTPw6PNkHm1iy@cluster0.oqicaw7.mongodb.net/test"
-)
+#modulo para menejar variables de entorno, facotor III: condif
+from decouple import config
+
+connectionString = config('MONGODB_CONNECTION_STRING');
+
+client = MongoClient(connectionString)
 
 db = client.RestaurantReviews
 

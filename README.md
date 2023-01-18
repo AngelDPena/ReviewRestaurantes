@@ -19,7 +19,7 @@ Para este proyecto se requiere:
 Link de Kanban: <https://trello.com/invite/b/ll9yACaS/ATTI839a163cb8721cac059cc30240e1e25fC924FA5C/restaurant-reviewer>.
 
 
-##Comandos
+## Comandos
 
 - Para correr app en etorno virtual: pipenv run python main.py
 - Para correr todos los tests en entorno virtual: pipenv run python -m unittest discover -v

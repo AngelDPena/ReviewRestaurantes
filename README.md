@@ -12,7 +12,9 @@ Para este proyecto se requiere:
 - Python 3.10.2
 - MongoDB
 - Pymongo
-- tkinter
+- pipenv
+- maskpass
+- python-decouple
 
 ## Otras fuentes
 

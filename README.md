@@ -23,3 +23,14 @@ Link de Kanban: <https://trello.com/invite/b/ll9yACaS/ATTI839a163cb8721cac059cc3
 
 - Para correr app en etorno virtual: pipenv run python main.py
 - Para correr todos los tests en entorno virtual: pipenv run python -m unittest discover -v
+- Para correr el código en un contenedor, primero debemos crear una imagen. Para esto,      corremos el siguiente código:
+    En caso de encontrarnos en el directorio donde se encuentra el dockerfile
+    - docker build --tag NombreDeLaImagenEnMinúsculas .
+    En caso de tenerlo en otro lugar especificar la ruta
+    - docker build --tag NombreDeLaImagenEnMinúsculas path
+- Luego, creamos un contenedor interactivo:
+    - docker create -it --name NombreDelContenedor NombreDeLaImagen
+    - docker start NombreDelContenedor
+    Para iniciar inicializar la consola del contenedor en la terminal que estás corriendo:
+        - docker exec -it NombreDelContenedor bash
+    - ¡Listo!

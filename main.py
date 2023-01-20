@@ -1,14 +1,8 @@
 import os
-import tkinter as tk
-from tkinter import Button, Entry, Label, StringVar, messagebox
-
 import maskpass as mp
 from pymongo import MongoClient
 
-#modulo para menejar variables de entorno, facotor III: condif
-from decouple import config
-
-connectionString = config('MONGODB_CONNECTION_STRING');
+connectionString = os.getenv('MONGODB_CONNECTION_STRING')
 
 client = MongoClient(connectionString)
 
@@ -18,21 +12,18 @@ users = db.Users
 restaurant = db.Restaurant
 review = db.Reviews
 
-root = tk.Tk()
-root.geometry("200x100")
-root.title("Login")
-
 
 def validateLogin(usr, pw):
     validation = login(usr, pw)
     if validation is True:
-        messagebox.showinfo(
-            "Mensaje del sistema", "¡Credenciales validadas correctamente!"
-        )
-        root.destroy()
+        os.system("cls" if os.name == "nt" else "clear")
+        print("¡Credenciales validadas correctamente!")
+        input("Precione cualquier tecla para continuar...")
+        os.system("cls" if os.name == "nt" else "clear")
         menu()
     else:
-        messagebox.showerror("Error", "¡Credenciales incorrectas!")
+        print("¡Credenciales incorrectas!")
+        ui()
 
 
 def login(usr, pw):
@@ -43,21 +34,9 @@ def login(usr, pw):
 
 
 def ui():
-    Label(root, text=" ").grid(row=0, column=0)
-    Label(root, text="User Name").grid(row=1, column=0)
-    username = StringVar()
-    Entry(root, textvariable=username).grid(row=1, column=1)
-
-    Label(root, text="Password").grid(row=2, column=0)
-    password = StringVar()
-    Entry(root, textvariable=password, show="*").grid(row=2, column=1)
-
-    Button(
-        root,
-        text="Login",
-        command=lambda: validateLogin(username.get(), password.get()),
-    ).grid(row=4, column=0)
-    tk.mainloop()
+    usr = input("Username: ")
+    pwd = mp.askpass("Password: ", "*")
+    validateLogin(usr, pwd)
 
 
 def menu():
@@ -70,7 +49,7 @@ def menu():
         print("2. Registrar un restaurante")
         print("3. Añadir reseña")
         option = int(input("Opcion: "))
-
+        os.system("cls" if os.name == "nt" else "clear")
         if option == 1:
             RegUser()
         elif option == 2:
@@ -78,7 +57,7 @@ def menu():
         elif option == 3:
             RegReview()
         option = int(input("Desea salir? coloque 0: "))
-        os.system("cls")
+        os.system("cls" if os.name == "nt" else "clear")
 
 
 def RegUser():
@@ -124,7 +103,8 @@ def RegRestaurant():
         ID = int(input("ID del Propietario: "))
         Rating = float(input("Calificación: "))
         print(" ")
-        post = {"Name": Nombre, "Address": Direccion, "OwnerID": ID, "Rating": Rating}
+        post = {"Name": Nombre, "Address": Direccion,
+                "OwnerID": ID, "Rating": Rating}
         if (
             restaurant.find_one(
                 {"Name": Nombre} and {"Address": Direccion} and {"OwnerID": ID}
